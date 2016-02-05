@@ -9,7 +9,7 @@
   "author": "Thomas Stringer",
   "license": "ISC",
   "dependencies": {
-    "azure-logger": "^0.1.2",
+    "azure-logger": "^0.1.3",
     "commander": "^2.9.0"
   }
 }
