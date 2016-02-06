@@ -1,6 +1,10 @@
 const logger = require('azure-logger');
 const program = require('commander');
 
+function displayEntry(entry) {
+  console.log(entry);
+}
+
 console.log(' *** azure logger ***');
 
 program
@@ -22,5 +26,8 @@ if (program.table) {
 }
 
 logger.get(options, function (err, entries) {
-  console.log(`entry count :: ${entries.length}`);
+  var i;
+  for (i = 0; i < entries.length; i++) {
+    displayEntry(entries[i]);
+  }
 });
