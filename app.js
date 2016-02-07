@@ -12,6 +12,7 @@ program
   .option('-a, --account <accountName>', 'Azure storage account name')
   .option('-k, --key <key>', 'Storage key')
   .option('-t, --table <table>', 'Table name')
+  .option('-s, --search <search>', 'Search string')
   .parse(process.argv);
 
 const options = {
