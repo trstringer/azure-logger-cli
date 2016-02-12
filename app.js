@@ -1,8 +1,16 @@
 const logger = require('azure-logger');
 const program = require('commander');
 
-function displayEntry(entry) {
-  console.log(JSON.stringify(entry, null, '\t'));
+function displayEntry(entry, search) {
+  const entryString = JSON.stringify(entry, null, '\t');
+  if (search && search !== '') {
+    if (entryString.indexOf(search) > -1) {
+      console.log(entryString);
+    }
+  } 
+  else {
+    console.log(entryString);
+  }
 }
 
 console.log(' *** azure logger CLI ***');
@@ -37,7 +45,7 @@ else {
   logger.get(options, function (err, entries) {
     var i;
     for (i = 0; i < entries.length; i++) {
-      displayEntry(entries[i]);
+      displayEntry(entries[i], program.search);
     }
   });
 }
