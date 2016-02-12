@@ -21,6 +21,7 @@ program
   .option('-k, --key <key>', 'Storage key')
   .option('-t, --table <table>', 'Table name')
   .option('-s, --search <search>', 'Search string')
+  .option('-t, --top <top>', 'Top count to limit results', parseInt)
   .parse(process.argv);
 
 const account = program.account || process.env.AZURE_STORAGE_ACCOUNT;
@@ -41,10 +42,13 @@ else {
   if (program.table) {
     options.table = program.table;
   }
+  
+  const top = program.top || Number.MAX_SAFE_INTEGER;
 
   logger.get(options, function (err, entries) {
     var i;
-    for (i = 0; i < entries.length; i++) {
+    const effectiveMax = top < entries.length ? top : entries.length;
+    for (i = 0; i < effectiveMax; i++) {
       displayEntry(entries[i], program.search);
     }
   });
