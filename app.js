@@ -2,10 +2,10 @@ const logger = require('azure-logger');
 const program = require('commander');
 
 function displayEntry(entry) {
-  console.log(entry);
+  console.log(JSON.stringify(entry, null, '\t'));
 }
 
-console.log(' *** azure logger ***');
+console.log(' *** azure logger CLI ***');
 
 program
   .version('1.0.0')
@@ -14,6 +14,8 @@ program
   .option('-t, --table <table>', 'Table name')
   .option('-s, --search <search>', 'Search string')
   .parse(process.argv);
+
+
 
 const options = {
   cred: {
