@@ -15,17 +15,17 @@ npm install --global azure-logger-cli
 ### Get help
 
 ```
-azure-logger-cli --help
+azure-logger --help
 ```
 
 ### Get all records from a table
 
 ```
-azure-logger-cli --table <tablename> [--account <account> --key <key>]
+azure-logger --table <tablename> [--account <account> --key <key>]
 ```
 
 ### Get top records from a table
 
 ```
-azure-logger-cli --table <tablename> --top <topnum> [--account <account> --key <key>]
+azure-logger --table <tablename> --top <topnum> [--account <account> --key <key>]
 ```
