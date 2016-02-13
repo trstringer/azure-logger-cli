@@ -1,6 +1,6 @@
 {
   "name": "azure-logger-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "CLI for azure-logger",
   "main": "app.js",
   "scripts": {
