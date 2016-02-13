@@ -9,7 +9,7 @@
   "author": "Thomas Stringer",
   "license": "ISC",
   "bin": {
-    "azure-logger": "node ./app.js"
+    "azure-logger": "./app"
   },
   "dependencies": {
     "azure-logger": "^0.1.3",
