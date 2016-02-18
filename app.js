@@ -25,10 +25,10 @@ program
   .parse(process.argv);
 
 const account = program.account || process.env.AZURE_STORAGE_ACCOUNT;
-const key = program.key || process.env.AZURE_STORAGE_KEY;
+const key = program.key || process.env.AZURE_STORAGE_ACCESS_KEY;
 
 if (!account || !key) {
-  console.log('You must specify the --account [or AZURE_STORAGE_ACCOUNT env var] and --key [or AZURE_STORAGE_KEY env var]');
+  console.log('You must specify the --account [or AZURE_STORAGE_ACCOUNT env var] and --key [or AZURE_STORAGE_ACCESS_KEY env var]');
   console.log('Exiting...');
 }
 else {
