@@ -3,24 +3,13 @@ const program = require('commander');
 
 function displayEntry(entry, search, exclude) {
   const entryString = JSON.stringify(entry, null, '\t');
-  if (search && search !== '') {
-    if (entryString.indexOf(search) > -1) {
-      if (exclude && exclude !== '') {
-        if (entryString.indexOf(exclude) > -1) {
-          return;
-        }
-      }
-      console.log(entryString);
-    }
-  } 
-  else {
-    if (exclude && exclude !== '') {
-      if (entryString.indexOf(exclude) > -1) {
-        return;
-      }
-    }
-    console.log(entryString);
+  if (exclude && exclude !== '' && entryString.indexOf(exclude) > -1) {
+    return;
   }
+  if (search && search !== '' && entryString.indexOf(search) === -1) {
+    return;
+  }
+  console.log(entryString);
 }
 
 console.log(' *** azure logger CLI ***');
