@@ -24,33 +24,39 @@ program
   .option('-t, --top <top>', 'Top count to limit results', parseInt)
   .option('-x, --exclude <exclude>', 'Exclude entries containing')
   .parse(process.argv);
-
-const account = program.account || process.env.AZURE_STORAGE_ACCOUNT;
-const key = program.key || process.env.AZURE_STORAGE_ACCESS_KEY;
-
-if (!account || !key) {
-  console.log('You must specify the --account [or AZURE_STORAGE_ACCOUNT env var] and --key [or AZURE_STORAGE_ACCESS_KEY env var]');
-  console.log('Exiting...');
+  
+// check required param(s)
+if (!program.table) {
+  console.log('You must specify a table name with --table');
 }
 else {
-  const options = {
-    cred: {
-      accountName: account,
-      accountKey: key
-    }
-  };
+  const account = program.account || process.env.AZURE_STORAGE_ACCOUNT;
+  const key = program.key || process.env.AZURE_STORAGE_ACCESS_KEY;
 
-  if (program.table) {
-    options.table = program.table;
+  if (!account || !key) {
+    console.log('You must specify the --account [or AZURE_STORAGE_ACCOUNT env var] and --key [or AZURE_STORAGE_ACCESS_KEY env var]');
+    console.log('Exiting...');
   }
-  
-  const top = program.top || Number.MAX_SAFE_INTEGER;
+  else {
+    const options = {
+      cred: {
+        accountName: account,
+        accountKey: key
+      }
+    };
 
-  logger.get(options, function (err, entries) {
-    var i;
-    const effectiveMax = top < entries.length ? top : entries.length;
-    for (i = 0; i < effectiveMax; i++) {
-      displayEntry(entries[i], program.search, program.exclude);
+    if (program.table) {
+      options.table = program.table;
     }
-  });
+    
+    const top = program.top || Number.MAX_SAFE_INTEGER;
+
+    logger.get(options, function (err, entries) {
+      var i;
+      const effectiveMax = top < entries.length ? top : entries.length;
+      for (i = 0; i < effectiveMax; i++) {
+        displayEntry(entries[i], program.search, program.exclude);
+      }
+    });
+  }
 }
