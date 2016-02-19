@@ -1,14 +1,24 @@
 const logger = require('azure-logger');
 const program = require('commander');
 
-function displayEntry(entry, search) {
+function displayEntry(entry, search, exclude) {
   const entryString = JSON.stringify(entry, null, '\t');
   if (search && search !== '') {
     if (entryString.indexOf(search) > -1) {
+      if (exclude && exclude !== '') {
+        if (entryString.indexOf(exclude) > -1) {
+          return;
+        }
+      }
       console.log(entryString);
     }
   } 
   else {
+    if (exclude && exclude !== '') {
+      if (entryString.indexOf(exclude) > -1) {
+        return;
+      }
+    }
     console.log(entryString);
   }
 }
@@ -22,6 +32,7 @@ program
   .option('-t, --table <table>', 'Table name')
   .option('-s, --search <search>', 'Search string')
   .option('-t, --top <top>', 'Top count to limit results', parseInt)
+  .option('-x, --exclude <exclude>', 'Exclude entries containing')
   .parse(process.argv);
 
 const account = program.account || process.env.AZURE_STORAGE_ACCOUNT;
