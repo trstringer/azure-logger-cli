@@ -1,5 +1,6 @@
 const logger = require('azure-logger');
 const program = require('commander');
+const packageConfig = require('./package.json');
 
 function displayEntry(entry, search, exclude) {
   const entryString = JSON.stringify(entry, null, '\t');
@@ -15,7 +16,7 @@ function displayEntry(entry, search, exclude) {
 console.log(' *** azure logger CLI ***');
 
 program
-  .version('1.0.0')
+  .version(packageConfig.version)
   .option('-a, --account <accountName>', 'Azure storage account name')
   .option('-k, --key <key>', 'Storage key')
   .option('-t, --table <table>', 'Table name')
@@ -49,7 +50,7 @@ else {
     var i;
     const effectiveMax = top < entries.length ? top : entries.length;
     for (i = 0; i < effectiveMax; i++) {
-      displayEntry(entries[i], program.search);
+      displayEntry(entries[i], program.search, program.exclude);
     }
   });
 }
