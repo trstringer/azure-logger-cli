@@ -3,6 +3,10 @@ const program = require('commander');
 const packageConfig = require('./package.json');
 
 function displayEntry(entry, options) {
+  if (options && options.local && entry.Timestamp) {
+    entry.Timestamp = new Date(entry.Timestamp).toLocaleString();
+  }
+  
   const entryString = JSON.stringify(entry, null, '\t');
   
   if (options) {
@@ -27,6 +31,7 @@ program
   .option('-s, --search <search>', 'Search string')
   .option('-t, --top <top>', 'Top count to limit results', parseInt)
   .option('-x, --exclude <exclude>', 'Exclude entries containing')
+  .option('-l, --local', 'Show local time')
   .parse(process.argv);
   
 // check required param(s)
@@ -61,7 +66,8 @@ else {
       for (i = 0; i < effectiveMax; i++) {
         displayEntry(entries[i], {
           search: program.search, 
-          exclude: program.exclude
+          exclude: program.exclude,
+          local: program.local
         });
       }
     });
