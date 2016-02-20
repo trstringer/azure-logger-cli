@@ -2,14 +2,18 @@ const logger = require('azure-logger');
 const program = require('commander');
 const packageConfig = require('./package.json');
 
-function displayEntry(entry, search, exclude) {
+function displayEntry(entry, options) {
   const entryString = JSON.stringify(entry, null, '\t');
-  if (exclude && exclude !== '' && entryString.indexOf(exclude) > -1) {
-    return;
+  
+  if (options) {
+    if (options.exclude && options.exclude !== '' && entryString.indexOf(options.exclude) > -1) {
+      return;
+    }
+    if (options.search && options.search !== '' && entryString.indexOf(options.search) === -1) {
+      return;
+    }
   }
-  if (search && search !== '' && entryString.indexOf(search) === -1) {
-    return;
-  }
+  
   console.log(entryString);
 }
 
@@ -55,7 +59,10 @@ else {
       var i;
       const effectiveMax = top < entries.length ? top : entries.length;
       for (i = 0; i < effectiveMax; i++) {
-        displayEntry(entries[i], program.search, program.exclude);
+        displayEntry(entries[i], {
+          search: program.search, 
+          exclude: program.exclude
+        });
       }
     });
   }
