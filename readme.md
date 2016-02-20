@@ -12,20 +12,16 @@ npm install --global azure-logger-cli
 
 > :bulb: Before you run this application you should set your user environment variables `AZURE_STORAGE_ACCOUNT` and `AZURE_STORAGE_ACCESS_KEY` to the storage account name and the corresponding key (ensure that you set them in user scope and not system scope so only you have access to them).  You can also pass these as parameters (`--account` and `--key`) when calling `azure-logger-cli` if you'd rather not store this information in user environment variables
 
-### Get help
-
 ```
-azure-logger --help
-```
+  Options:
 
-### Get all records from a table
-
-```
-azure-logger --table <tablename> [--account <account> --key <key>]
-```
-
-### Get top records from a table
-
-```
-azure-logger --table <tablename> --top <topnum> [--account <account> --key <key>]
+    -h, --help                   output usage information
+    -V, --version                output the version number
+    -a, --account <accountName>  Azure storage account name
+    -k, --key <key>              Storage key
+    -t, --table <table>          Table name
+    -s, --search <search>        Search string
+    -t, --top <top>              Top count to limit results
+    -x, --exclude <exclude>      Exclude entries containing
+    -l, --local                  Show local time
 ```
