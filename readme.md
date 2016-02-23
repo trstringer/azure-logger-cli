@@ -21,11 +21,13 @@ azure-logger [options]
 
     -h, --help                   output usage information
     -V, --version                output the version number
-    -a, --account <accountName>  Azure storage account name
-    -k, --key <key>              Storage key
-    -t, --table <table>          Table name
-    -s, --search <search>        Search string
-    -t, --top <top>              Top count to limit results
-    -x, --exclude <exclude>      Exclude entries containing
-    -l, --local                  Show local time
+    -a, --account <accountName>  azure storage account name
+    -k, --key <key>              storage key
+    -t, --table <table>          table name
+    -s, --search <search>        search string
+    -t, --top <top>              top count to limit results
+    -x, --exclude <exclude>      exclude entries containing
+    -l, --local                  show local time
+    -o, --order                  order by date (default to asc)
+    -d, --desc                   order by date descending
 ```
