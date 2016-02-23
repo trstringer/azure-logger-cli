@@ -2,6 +2,9 @@ const logger = require('azure-logger');
 const program = require('commander');
 const packageConfig = require('./package.json');
 
+// return:
+//  true if entry displayed
+//  false if entry not displayed
 function displayEntry(entry, options) {
   if (options && options.local && entry.Timestamp) {
     entry.Timestamp = new Date(entry.Timestamp).toLocaleString();
@@ -11,27 +14,30 @@ function displayEntry(entry, options) {
   
   if (options) {
     if (options.exclude && options.exclude !== '' && entryString.indexOf(options.exclude) > -1) {
-      return;
+      return false;
     }
     if (options.search && options.search !== '' && entryString.indexOf(options.search) === -1) {
-      return;
+      return false;
     }
   }
   
   console.log(entryString);
+  return true;
 }
 
 console.log(' *** azure logger CLI ***');
 
 program
   .version(packageConfig.version)
-  .option('-a, --account <accountName>', 'Azure storage account name')
-  .option('-k, --key <key>', 'Storage key')
-  .option('-t, --table <table>', 'Table name')
-  .option('-s, --search <search>', 'Search string')
-  .option('-t, --top <top>', 'Top count to limit results', parseInt)
-  .option('-x, --exclude <exclude>', 'Exclude entries containing')
-  .option('-l, --local', 'Show local time')
+  .option('-a, --account <accountName>', 'azure storage account name')
+  .option('-k, --key <key>', 'storage key')
+  .option('-t, --table <table>', 'table name')
+  .option('-s, --search <search>', 'search string')
+  .option('-t, --top <top>', 'top count to limit results', parseInt)
+  .option('-x, --exclude <exclude>', 'exclude entries containing')
+  .option('-l, --local', 'show local time')
+  .option('-o, --order', 'order by date (default to asc)')
+  .option('-d, --desc', 'order by date descending')
   .parse(process.argv);
   
 // check required param(s)
@@ -61,14 +67,30 @@ else {
     const top = program.top || Number.MAX_SAFE_INTEGER;
 
     logger.get(options, function (err, entries) {
+      if (program.order) {
+        entries.sort((a, b) => {
+          const date1 = program.desc ? new Date(b.Timestamp) : new Date(a.Timestamp);
+          const date2 = program.desc ? new Date(a.Timestamp) : new Date(b.Timestamp);
+          return date1 - date2;
+        });
+      }
+      
       var i;
+      var j = 0;
       const effectiveMax = top < entries.length ? top : entries.length;
       for (i = 0; i < effectiveMax; i++) {
-        displayEntry(entries[i], {
+        if (!displayEntry(entries[j], {
           search: program.search, 
           exclude: program.exclude,
           local: program.local
-        });
+        })) {
+          // if the entry wasn't displayed because it didn't match 
+          // criteria so we need to do another iteration
+          i--;
+        }
+        // always increment the indexing variable as we will always 
+        // need to look at the next entry
+        j++;
       }
     });
   }
