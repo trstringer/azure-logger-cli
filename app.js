@@ -97,6 +97,11 @@ else {
           // always increment the indexing variable as we will always 
           // need to look at the next entry
           j++;
+          
+          // we need a hard stop so that we don't keep looping endlessly
+          if (j > entries.length) {
+            break;
+          }
         }
       }
     });
