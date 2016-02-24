@@ -33,7 +33,7 @@ program
   .option('-k, --key <key>', 'storage key')
   .option('-t, --table <table>', 'table name')
   .option('-s, --search <search>', 'search string')
-  .option('-t, --top <top>', 'top count to limit results', parseInt)
+  .option('-f, --first <first>', 'top count to limit results', parseInt)
   .option('-x, --exclude <exclude>', 'exclude entries containing')
   .option('-l, --local', 'show local time')
   .option('-o, --order', 'order by date (default to asc)')
@@ -64,7 +64,7 @@ else {
       options.table = program.table;
     }
     
-    const top = program.top || Number.MAX_SAFE_INTEGER;
+    const top = program.first || Number.MAX_SAFE_INTEGER;
 
     logger.get(options, function (err, entries) {
       if (program.order) {
