@@ -6,7 +6,7 @@ const packageConfig = require('./package.json');
 //  true if entry displayed
 //  false if entry not displayed
 function displayEntry(entry, options) {
-  if (options && options.local && entry.Timestamp) {
+  if (options && options.local && entry && entry.Timestamp) {
     entry.Timestamp = new Date(entry.Timestamp).toLocaleString();
   }
   
