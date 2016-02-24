@@ -12,17 +12,22 @@ function displayEntry(entry, options) {
   
   const entryString = JSON.stringify(entry, null, '\t');
   
-  if (options && entryString) {
-    if (options.exclude && options.exclude !== '' && entryString.indexOf(options.exclude) > -1) {
-      return false;
+  if (entryString) {
+    if (options) {
+      if (options.exclude && options.exclude !== '' && entryString.indexOf(options.exclude) > -1) {
+        return false;
+      }
+      if (options.search && options.search !== '' && entryString.indexOf(options.search) === -1) {
+        return false;
+      }
     }
-    if (options.search && options.search !== '' && entryString.indexOf(options.search) === -1) {
-      return false;
-    }
+    
+    console.log(entryString);
+    return true;
   }
-  
-  console.log(entryString);
-  return true;
+  else {
+    return false;
+  }
 }
 
 console.log(' *** azure logger CLI ***');
