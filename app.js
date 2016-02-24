@@ -67,30 +67,32 @@ else {
     const top = program.first || Number.MAX_SAFE_INTEGER;
 
     logger.get(options, function (err, entries) {
-      if (program.order) {
-        entries.sort((a, b) => {
-          const date1 = program.desc ? new Date(b.Timestamp) : new Date(a.Timestamp);
-          const date2 = program.desc ? new Date(a.Timestamp) : new Date(b.Timestamp);
-          return date1 - date2;
-        });
-      }
-      
-      var i;
-      var j = 0;
-      const effectiveMax = top < entries.length ? top : entries.length;
-      for (i = 0; i < effectiveMax; i++) {
-        if (!displayEntry(entries[j], {
-          search: program.search, 
-          exclude: program.exclude,
-          local: program.local
-        })) {
-          // if the entry wasn't displayed because it didn't match 
-          // criteria so we need to do another iteration
-          i--;
+      if (entries && entries.length > 0) {
+        if (program.order) {
+          entries.sort((a, b) => {
+            const date1 = program.desc ? new Date(b.Timestamp) : new Date(a.Timestamp);
+            const date2 = program.desc ? new Date(a.Timestamp) : new Date(b.Timestamp);
+            return date1 - date2;
+          });
         }
-        // always increment the indexing variable as we will always 
-        // need to look at the next entry
-        j++;
+        
+        var i;
+        var j = 0;
+        const effectiveMax = top < entries.length ? top : entries.length;
+        for (i = 0; i < effectiveMax; i++) {
+          if (!displayEntry(entries[j], {
+            search: program.search, 
+            exclude: program.exclude,
+            local: program.local
+          })) {
+            // if the entry wasn't displayed because it didn't match 
+            // criteria so we need to do another iteration
+            i--;
+          }
+          // always increment the indexing variable as we will always 
+          // need to look at the next entry
+          j++;
+        }
       }
     });
   }
