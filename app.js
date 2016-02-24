@@ -12,7 +12,7 @@ function displayEntry(entry, options) {
   
   const entryString = JSON.stringify(entry, null, '\t');
   
-  if (options) {
+  if (options && entryString) {
     if (options.exclude && options.exclude !== '' && entryString.indexOf(options.exclude) > -1) {
       return false;
     }
