@@ -9,7 +9,7 @@
   "author": "Thomas Stringer",
   "license": "ISC",
   "bin": {
-    "azure-logger": "./app"
+    "azlog": "./azlog"
   },
   "engines": {
     "node": ">=0.12.0"
