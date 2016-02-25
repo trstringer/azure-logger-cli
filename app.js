@@ -73,7 +73,7 @@ else {
 
     logger.get(options, function (err, entries) {
       if (entries && entries.length > 0) {
-        if (program.order) {
+        if (program.order || program.desc) {
           entries.sort((a, b) => {
             const date1 = program.desc ? new Date(b.Timestamp) : new Date(a.Timestamp);
             const date2 = program.desc ? new Date(a.Timestamp) : new Date(b.Timestamp);
