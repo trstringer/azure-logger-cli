@@ -25,7 +25,7 @@ azlog [options]
     -k, --key <key>              storage key
     -t, --table <table>          table name
     -s, --search <search>        search string
-    -t, --top <top>              top count to limit results
+    -f, --first <first>          top count to limit results
     -x, --exclude <exclude>      exclude entries containing
     -l, --local                  show local time
     -o, --order                  order by date (default to asc)
