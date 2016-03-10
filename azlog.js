@@ -2,12 +2,6 @@ const logger = require('azure-logger');
 const program = require('commander');
 const packageConfig = require('./package.json');
 
-function isMatch(entry, test) {
-  for (var prop in test) {
-    // test each entry property for property and value
-  }
-}
-
 // return:
 //  true if entry displayed
 //  false if entry not displayed
